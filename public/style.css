@@ -1,0 +1,1168 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --bckground: rgb(254, 199, 4);
+  --fontcolor: rgb(0, 0, 0);
+  --shadow1: rgba(0, 0, 0, 0.25);
+  --shadow2: rgb(0, 0, 0);
+  --c2: rgb(243, 205, 90);
+  --c3: rgb(217, 217, 217);
+  --c4: rgb(242, 190, 34);
+  --c5: rgb(201, 169, 72);
+  --c6: rgb(212, 167, 31);
+  --c7: rgb(0, 251, 236);
+  --c8: rgb(71, 68, 68);
+  --c9: rgb(175, 142, 41);
+  --c10: rgb(174, 140, 41);
+}
+
+@font-face {
+  font-family: "Barcade";
+  src: url("fonts/BarcadeBI.otf");
+}
+
+@font-face {
+  font-family: "minesweeper";
+  src: url("img/minesweeper.ttf");
+}
+
+body {
+  background-color: rgb(222, 222, 222);
+  width: 100%;
+  min-height: 100vh;
+}
+
+a {
+  display: flex;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  border-bottom-left-radius: 5rem;
+  box-shadow: (0.2, 0, 0, 0);
+  justify-content: center;
+  margin-right: 14px;
+}
+
+.navigation {
+  margin-left: 40px;
+
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+  width: 100%;
+}
+
+.title a {
+  font-family: Barcade;
+  font-size: 3rem;
+  position: relative;
+  margin-top: 20px;
+  margin-left: 90px;
+  text-decoration: none;
+  color: var(--fontcolor);
+}
+
+.title a:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+.hotbar_button {
+  height: 36px;
+  width: 36px;
+  margin-top: 36px;
+  margin-left: 6rem;
+  box-sizing: border-box;
+}
+
+.hotbar_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.hotbarCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.hotbar {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  background-color: rgb(215, 213, 213);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  margin-top: 6rem;
+  margin-right: 8px;
+  height: 240px;
+
+  box-shadow: 20px 5px 30px rgb(0, 0, 0);
+  width: 240px;
+  position: absolute;
+}
+
+.refresh {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  background-color: rgb(215, 213, 213);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  text-decoration: none;
+  color: black;
+
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  margin: 20px;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.refresh:hover {
+  cursor: pointer;
+  background-color: rgb(184, 182, 182);
+}
+
+.joystick {
+  height: 80px;
+  width: 80px;
+}
+
+.hotbar_top {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: right;
+  margin-right: 12px;
+  margin-top: 10px;
+}
+
+.hotbar_search {
+  border-radius: 20px;
+  border: solid 1px black;
+  height: 2rem;
+  width: 10rem;
+  font-size: 24px;
+  padding: 6px;
+}
+
+.exit_hotbar {
+  font-size: 24px;
+  font-family: sans-serif;
+}
+
+.exit_hotbar:hover {
+  cursor: pointer;
+}
+
+.column {
+  background-color: white;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#board {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.border {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 3px;
+}
+
+.OPborder {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 3px;
+}
+
+.row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.tile.Beginner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  background-image: url("img/tile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.tile.Intermediate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  background-image: url("img/tile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.tile.Hard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+  background-image: url("img/tile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.tile:hover {
+  filter: brightness(85%);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.clicked.Beginner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  font-size: 20px;
+  font-family: minesweeper;
+  background-color: rgb(228, 228, 228);
+  border: 1px solid rgb(128, 128, 128);
+}
+
+.clicked.Intermediate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  font-size: 16px;
+  font-family: minesweeper;
+  background-color: rgb(228, 228, 228);
+  border: 1px solid rgb(128, 128, 128);
+}
+
+.clicked.Hard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+  font-size: 16px;
+  font-family: minesweeper;
+  background-color: rgb(228, 228, 228);
+  border: 1px solid rgb(128, 128, 128);
+}
+
+.mine.Beginner {
+  background-color: rgba(255, 0, 0, 0.729);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  background-image: url("img/bomb.png");
+  background-repeat: no-repeat;
+  background-size: 36px;
+  background-position: center;
+  border: 1px solid black;
+}
+
+.mine.Intermediate {
+  background-color: rgba(255, 0, 0, 0.729);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  background-image: url("img/bomb.png");
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+  border: 1px solid black;
+}
+
+.mine.Hard {
+  display: flex;
+  background-color: rgba(255, 0, 0, 0.729);
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 2rem;
+  background-image: url("img/bomb.png");
+  background-repeat: no-repeat;
+  background-size: 28px;
+  background-position: center;
+  border: 1px solid black;
+}
+
+.websocket {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+/* _______________difficulty page code _______________ */
+
+.titleDiff {
+  margin-top: 36px;
+  font-size: 16px;
+  color: white;
+  font-family: minesweeper;
+}
+
+.diffBox {
+  margin-top: 60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(151, 151, 151, 0.9);
+  height: 80.6rem;
+  width: 100%;
+}
+
+.diffContentBox {
+  background-color: rgb(155, 152, 152);
+  width: 190px;
+  height: 340px;
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.diff {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  background-color: rgb(215, 213, 213);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  height: 43px;
+  width: 135px;
+
+  margin-top: 30px;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.diff > l {
+  margin-top: 200px;
+}
+.diff:hover {
+  cursor: pointer;
+  background-color: rgb(184, 182, 182);
+  font-size: 15px;
+}
+
+/* -------------------- */
+
+/* _______________Server Page Code _______________ */
+
+.serverTitle {
+  margin-top: 36px;
+  font-size: 14px;
+  text-align: center;
+  color: white;
+  font-family: minesweeper;
+}
+
+.serverBox {
+  margin-top: 60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(151, 151, 151, 0.9);
+  height: 80.6rem;
+  width: 100%;
+}
+
+.serverContentBox {
+  background-color: rgb(155, 152, 152);
+  width: 190px;
+  height: 340px;
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.serverOption {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  background-color: rgb(215, 213, 213);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  height: 43px;
+  width: 135px;
+
+  margin-top: 30px;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.serverOption > l {
+  margin-top: 200px;
+}
+.serverOption:hover {
+  cursor: pointer;
+  background-color: rgb(184, 182, 182);
+  font-size: 15px;
+}
+
+/* -------------------- */
+
+/* _______________Create Server Page Code _______________ */
+
+.createServerTitle {
+  margin-top: 36px;
+  font-size: 18px;
+  text-align: center;
+  color: white;
+  font-family: minesweeper;
+}
+
+.createServerHead {
+  margin-top: 36px;
+  font-size: 10px;
+  text-align: center;
+  color: white;
+  font-family: minesweeper;
+}
+
+.usernameHead {
+  margin-top: 8px;
+  font-size: 10px;
+  text-align: center;
+  color: white;
+  font-family: minesweeper;
+}
+
+.createServerBox {
+  margin-top: 60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(151, 151, 151, 0.9);
+  height: 80.6rem;
+  width: 100%;
+}
+
+.createServerContentBox {
+  background-color: rgb(155, 152, 152);
+  width: 200px;
+  height: 340px;
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createServerOption {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  background-color: rgb(215, 213, 213);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  height: 43px;
+  width: 135px;
+
+  margin-top: 10px;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.createServerOption > l {
+  margin-top: 200px;
+}
+.createServerOption:hover {
+  cursor: pointer;
+  background-color: rgb(184, 182, 182);
+  font-size: 15px;
+}
+
+.serverNameInput {
+  margin-top: 4px;
+  height: 30px;
+  border-radius: 8px;
+}
+
+/* -------------------- */
+
+.boardHeader {
+  margin-top: 10px;
+  margin-right: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  display: flex;
+  height: auto;
+  color: rgb(221, 0, 0);
+  font-size: 2.5rem;
+  background-color: rgb(195, 195, 195);
+  margin-bottom: 2px;
+  width: 9.1rem;
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+}
+
+.box img {
+  width: 1.7rem;
+  height: 1.7rem;
+  justify-content: space-evenly;
+}
+
+.data {
+  font-family: "Gemunu Libre", sans-serif;
+}
+
+.restart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.restart:hover {
+  filter: opacity(60%);
+  transform: rotate(90deg) scale(1.07);
+  transition: 0.2s;
+}
+
+.flagged.Beginner {
+  background-image: url("img/flagged.png");
+}
+
+.flagged.Intermediate {
+  background-image: url("img/flagged.png");
+}
+
+.flagged.Hard {
+  background-image: url("img/flagged.png");
+}
+
+.blue {
+  color: blue;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.black {
+  color: black;
+}
+
+.purple {
+  color: purple;
+}
+
+/* Description page */
+
+.minesweeperTitle {
+  font-family: minesweeper;
+  margin-top: 20px;
+}
+
+.descBox {
+  margin-top: 60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(151, 151, 151, 0.9);
+  height: 80.6rem;
+  width: 100%;
+}
+
+.descContentBox {
+  background-color: rgb(155, 152, 152);
+  width: 400px;
+  height: 480px;
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.descBoxTitle {
+  position: absolute;
+  font-size: 30px;
+  margin-top: 60px;
+
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.descTextBox {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  overflow: auto;
+  background-color: rgb(215, 213, 213);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 350px;
+  height: 180px;
+  margin-top: 50px;
+}
+.descText {
+  font-size: 18px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.descControlsBox {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  background-color: rgb(215, 213, 213);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 190px;
+  height: 110px;
+  margin-top: 40px;
+  margin-left: -160px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.descControlsTitle {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  position: absolute;
+
+  margin-top: -40px;
+  margin-left: 30px;
+
+  font-size: 30px;
+}
+
+.descControlsBox > l {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 15px;
+
+  margin-left: 5px;
+  margin-top: 10px;
+}
+
+.descBoxSingleplayerButton {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  background-color: rgb(215, 213, 213);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  width: 120px;
+  height: 40px;
+  margin-top: 40px;
+  margin-left: 30px;
+  position: absolute;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.descBoxMultiplayerButton {
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+
+  background-color: rgb(215, 213, 213);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  width: 120px;
+  height: 40px;
+  margin-top: 109px;
+  margin-left: 30px;
+  position: absolute;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.descHoverable:hover {
+  cursor: pointer;
+  background-color: rgb(169, 169, 169);
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.descBoxBottom {
+  display: flex;
+  flex-direction: row;
+}
+.controlLbox {
+  margin-top: 12px;
+}
+
+.controlLtop {
+  text-decoration: underline 2px;
+}
+
+.controlL {
+  text-align: center;
+  font-family: minesweeper;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.controlRbox {
+  margin-top: 12px;
+}
+
+.controlRtop {
+  text-decoration: underline 2px;
+}
+
+.controlR {
+  text-align: center;
+  font-family: minesweeper;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+/* -------------- */
+
+/* you win code */
+
+.winBox {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(131, 130, 130);
+
+  background-color: rgb(183, 182, 182);
+
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  height: 123px;
+  width: 235px;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.winning {
+  font-size: 26px;
+  font-family: Minesweeper;
+  color: rgb(176, 248, 69);
+  -webkit-text-stroke: 0.2px;
+  -webkit-text-stroke-color: rgb(145, 145, 145);
+}
+
+/* -------- */
+
+/* game over code */
+
+.loseBox {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(131, 130, 130);
+
+  background-color: rgb(183, 182, 182);
+  font-weight: 700;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  height: 123px;
+  width: 235px;
+
+  text-align: center;
+}
+
+.blurBeginner {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.5);
+  height: 27.5rem;
+  width: 27.5rem;
+}
+
+.blurIntermediate {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.5);
+  height: 31.5rem;
+  width: 45rem;
+}
+
+.blurHard {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.5);
+  height: 32rem;
+  width: 60rem;
+}
+
+.lose {
+  font-size: 23px;
+  font-family: Minesweeper;
+  color: rgb(246, 26, 26);
+  -webkit-text-stroke: 0.2px;
+  -webkit-text-stroke-color: rgb(182, 181, 181);
+}
+
+/* -------------- */
+
+/* Opponents Board */
+
+.opponent {
+  display: flex;
+  flex-flow: column;
+}
+
+#opponentsBoard {
+  left: 12rem;
+  display: flex;
+  flex-flow: row;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 3px;
+}
+
+.OProw {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.OPcolumn {
+  background-color: white;
+}
+
+.OPtile.Beginner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+  width: 1rem;
+  background-image: url("img/tile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.OPtile.Intermediate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+  width: 1rem;
+  background-image: url("img/tile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.OPtile.Hard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0.75rem;
+  width: 0.75rem;
+  background-image: url("img/tile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.OPclicked.Beginner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+  width: 1rem;
+  font-size: 10px;
+  font-family: minesweeper;
+  background-color: rgb(228, 228, 228);
+  border: 1px solid rgb(128, 128, 128);
+}
+
+.OPclicked.Intermediate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+  width: 1rem;
+  font-size: 10px;
+  font-family: minesweeper;
+  background-color: rgb(228, 228, 228);
+  border: 1px solid rgb(128, 128, 128);
+}
+
+.OPclicked.Hard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0.75rem;
+  width: 0.75rem;
+  font-size: 8px;
+  font-family: minesweeper;
+  background-color: rgb(228, 228, 228);
+  border: 1px solid rgb(128, 128, 128);
+}
+
+.OPmine.Beginner {
+  background-color: rgba(255, 0, 0, 0.729);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+  width: 1rem;
+  background-image: url("img/bomb.png");
+  background-repeat: no-repeat;
+  background-size: 14px;
+  background-position: center;
+  border: 1px solid black;
+}
+
+.OPmine.Intermediate {
+  background-color: rgba(255, 0, 0, 0.729);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1rem;
+  width: 1rem;
+  background-image: url("img/bomb.png");
+  background-repeat: no-repeat;
+  background-size: 14px;
+  background-position: center;
+  border: 1px solid black;
+}
+
+.OPmine.Hard {
+  display: flex;
+  background-color: rgba(255, 0, 0, 0.729);
+  justify-content: center;
+  align-items: center;
+  height: 0.75rem;
+  width: 0.75rem;
+  background-image: url("img/bomb.png");
+  background-repeat: no-repeat;
+  background-size: 10px;
+  background-position: center;
+  border: 1px solid black;
+}
+
+/* -------------- */
+
+/* Opponents Board */
+
+.waitPage {
+  margin-top: 60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(151, 151, 151, 0.9);
+  height: 80.6rem;
+  width: 100%;
+}
+
+.waitContentBox {
+  background-color: rgb(155, 152, 152);
+  width: 16rem;
+  height: 8rem;
+  border-style: inset;
+  border-width: 4px;
+  outline-style: solid;
+  outline-color: rgb(139, 139, 139);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wait {
+  text-align: center;
+  margin-top: 36px;
+  font-size: 16px;
+  color: white;
+  font-family: minesweeper;
+}
+
+/* -------------- */
+
+.OPusername {
+  font-family: minesweeper;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.users {
+  padding: 6px;
+  margin-right: 24px;
+  background-color: darkgrey;
+  border: 2px solid black;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user {
+  font-family: minesweeper;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.usersTitle {
+  font-family: minesweeper;
+  font-size: 16px;
+}

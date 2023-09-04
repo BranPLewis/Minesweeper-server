@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Minesweeper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <nav>
+            <div class="navigation">
+                <div class="title"><a href="../../index.html">Bored-Central</a></div>
+                <img class="hotbar_button" @click="toggle_hotbar()" src="img/menu.png" alt="controller">
+            </div>
+            <div class="hotbar" v-show="hotbarOn">
+                <div class='hotbar_top'>
+                    <div @click='hotbarOff()' class="exit_hotbar">X</div>
+                </div>
+                <div>
+                    <a href="" class="refresh">Change Difficulty</a>
+                </div>
+            </div>
+        </nav>
+        <div class="boardHeader">
+            <div class='box'>
+                <div><img src='img/flagIcon.svg'></img></div>
+                <div class='data'>{{currentMines}}</div>
+            </div>
+            <div class='box' v-show="restartToggle">
+                <div class="restart" @click="restart(this.activeDifficulty[0])"><img src='img/restart.png'></img></div>
+            </div>
+            <div class='box' v-show="restartToggle">
+                <div><img src='img/stopwatch.svg'></img></div>
+                <div class='data'>{{formatTimer}}</div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div id="board">
+                <div class="users" v-show="playersToggle">
+                    <div class="usersTitle">Players:</div>
+                    <div v-for="user in usernames">
+                        <div class="user">{{user}}</div>
+                    </div>
+                </div>
+                <div class="border">
+                    <div class="column" v-for="col in tiles">
+                        <div class="row" v-for="row in col">
+                            <div
+                            @click="generateMines(row, this.activeDifficulty[0]), tile_click(row, this.activeDifficulty[0]),startTimer(),checkWin(this.activeDifficulty[0]),serverPlay()"
+                            :class="[row.class, row.color, row.flag, row.difficulty]"
+                            @contextmenu.prevent
+                            @click.right="flag(row), checkWin(this.activeDifficulty[0])"
+                            >
+                            {{row.number}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blurBeginner" v-show="winBeginner">
+                        <div class="winBox">
+                            <div class="winning">You Win!</div>
+                        </div>
+                    </div>
+                    <div class="blurBeginner" v-show="gameOverBeginner">
+                        <div class="loseBox">
+                            <div class="lose" >Game Over</div>
+                        </div>
+                    </div>
+                    <div class="blurIntermediate" v-show="winIntermediate">
+                        <div class="winBox">
+                            <div class="winning">You Win!</div>
+                        </div>
+                    </div>
+                    <div class="blurIntermediate" v-show="gameOverIntermediate">
+                        <div class="loseBox">
+                            <div class="lose" >Game Over</div>
+                        </div>
+                    </div>
+                    <div class="blurHard" v-show="winHard">
+                        <div class="winBox">
+                            <div class="winning">You Win!</div>
+                        </div>
+                    </div>
+                    <div class="blurHard" v-show="gameOverHard">
+                        <div class="loseBox">
+                            <div class="lose" >Game Over</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="opponent">
+                    <div class="OPusername" v-show="OPusernameToggle">Opponent: </div>
+                    <div class="OPborder">
+                        <div id="opponentsBoard" v-show="opponentExists">
+                            <div class="OPcolumn" v-for="col in OPtiles">
+                                <div class="OProw" v-for="row in col">
+                                    <div
+                                    :class="[row.class, row.color, row.flag, row.difficulty]"
+                                    @contextmenu.prevent
+                                    @click.right="flag(row), checkWin(this.activeDifficulty[0]) "
+                                    >
+                                    {{row.number}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- description page -->
+
+                <div class="descBox" v-show="descriptionPage">
+                    <div class="descContentBox">
+
+                        <h2 class="minesweeperTitle">Minesweeper</h3>
+                        <h3 class="descBoxTitle">How To Play</h3>
+
+                        <div class="descTextBox">
+                            <p class="descText">
+                                In this game you are presented with a board of squares.
+                                 Some squares contain mines, others squares don't. Clicking a square which doesn't have a mine reveals the number of neighbouring squares containing mines.
+                                 For example if a square contains a 1 then there is a mine in one of the surrounding squares and so on. If you click on a square containing a mine,
+                                 you lose. If there is a square which you think may contain a mine, you can place a flag to mark it. If you manage to open up all the squares without clicking on a mine, you win.
+
+                            </p>
+                        </div>
+                        <div class="descBoxBottom">
+                            <div class="descControlsBox">
+                                <h4 class="descControlsTitle">Controls</h4>
+                                <div class="controlLbox">
+                                    <p class="controlL controlLtop">Left-Click:</p>
+                                    <p class="controlL">Reveal any square</p>
+                                </div>
+                                <div class="controlRbox">
+                                    <p class="controlR controlRtop">Right-Click:</p>
+                                    <p class="controlR">Place a flag</p>
+                                </div>
+
+                            </div>
+                            <div>
+                                <a class="descBoxSingleplayerButton descHoverable" @click="SingleplayerSwitch(),opponentSwitchOff(), gameModeSingle()">Singleplayer</a>
+                                <a class="descBoxMultiplayerButton descHoverable" @click="MultiplayerSwitch(),opponentSwitchOn(),gameModeMulti()">Multiplayer</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- --------------- -->
+
+                <!-- singleplayer difficulty page -->
+
+                <div class="diffBox" v-show="singleplayerDifficultyPage">
+                    <div class="diffContentBox">
+                        <p class="titleDiff">Difficulty:</p>
+                        <a class="diff" @click="difficultySwitch(),changeDifficultytoBeginner(),generateBoard(this.activeDifficulty[0]),OPgenerateBoard(this.activeDifficulty[0])">Beginner</a>
+                        <a class="diff" @click="difficultySwitch(),changeDifficultytoIntermediate(),generateBoard(this.activeDifficulty[0])">Intermediate</a>
+                        <a class="diff" @click="difficultySwitch(),changeDifficultytoHard(),generateBoard(this.activeDifficulty[0])">Hard</a>
+                    </div>
+                </div>
+
+                <!-- multiplayer difficulty page -->
+
+                <div class="diffBox" v-show="multiplayerDifficultyPage">
+                    <div class="diffContentBox">
+                        <p class="titleDiff">Difficulty:</p>
+                        <a class="diff" @click="difficultySwitch(),changeDifficultytoBeginner(),createServer(),joinServerOnCreation()">Beginner</a>
+                        <a class="diff" @click="difficultySwitch(),changeDifficultytoIntermediate(),createServer(),joinServerOnCreation()">Intermediate</a>
+                        <a class="diff" @click="difficultySwitch(),changeDifficultytoHard(),createServer(),joinServerOnCreation()">Hard</a>
+                    </div>
+                </div>
+
+                <!-- multiplayer waiting page -->
+
+                <div class="waitPage" v-show="standby">
+                    <div class="waitContentBox">
+                        <p class="wait">Waiting for opponent...</p>
+                    </div>
+                </div>
+
+                <!-- Server Page -->
+
+                <div class="serverBox" v-show="serverPage">
+                    <div class="serverContentBox">
+                        <p class="serverTitle">Minesweeper Multiplayer:</p>
+                        <a class="serverOption" @click="createServerToggle()">Create Server</a>
+                        <a class="serverOption" @click="joinServerToggle()">Join Server</a>
+                    </div>
+                </div>
+
+                <!-- ----------- -->
+
+                <!-- Create Server Page -->
+
+                <div class="createServerBox" v-show="createServerPage">
+                    <div class="createServerContentBox">
+                        <p class="createServerTitle">Server Creation:</p>
+                        <p class="createServerHead">Username:</p>
+                        <input v-model="username" id="username" class="serverNameInput" type="text" placeholder="Your Username">
+                        <p class="usernameHead">Server ID:</p>
+                        <input v-model="gameId" id="gameID" class="serverNameInput" type="text" placeholder="Server ID">
+                        <a class="createServerOption" id="createServer" @click="serverCreated()">Create Server</a>
+                    </div>
+                </div>
+
+                <!-- ----------- -->
+
+                <!-- Join Server Page -->
+
+                <div class="createServerBox" v-show="joinServerPage">
+                    <div class="createServerContentBox">
+                        <p class="createServerTitle">Server Join:</p>
+                        <p class="createServerHead">Username:</p>
+                        <input v-model="username" id="username" class="serverNameInput" type="text" placeholder="Your Username">
+                        <p class="usernameHead">Server ID:</p>
+                        <input v-model="gameId" id="gameID" class="serverNameInput" type="text" placeholder="Server ID">
+                        <a class="createServerOption" id="createServer" @click="joinServer()">Join Server</a>
+                    </div>
+                </div>
+
+                <!-- ----------- -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
