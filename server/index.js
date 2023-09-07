@@ -21,10 +21,7 @@ app.listen(9091, function () {
   console.log("Running on port 9091");
 });
 const websocketServer = require("websocket").server;
-const httpServer = http.createServer();
-httpServer.listen(9090, function () {
-  console.log("Listening.. on 9090");
-});
+const httpServer = http.createServer(app);
 
 const clients = {};
 const games = {};
