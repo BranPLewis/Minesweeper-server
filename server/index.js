@@ -2,8 +2,8 @@ const http = require("http");
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const port = process.env.PORT || 9091;
-const portListen = process.env.PORT || 9090;
+// const port = process.env.PORT || 9091;
+// const portListen = process.env.PORT || 9090;
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -17,12 +17,12 @@ app.use(
 );
 
 // 1: Require web sockets
-app.listen(port, function () {
+app.listen(9091, function () {
   console.log("Running on port 9091");
 });
 const websocketServer = require("websocket").server;
 const httpServer = http.createServer();
-httpServer.listen(portListen, function () {
+httpServer.listen(9090, function () {
   console.log("Listening.. on 9090");
 });
 
