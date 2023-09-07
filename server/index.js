@@ -2,7 +2,7 @@ const http = require("http");
 const express = require("express");
 const app = express();
 const cors = require("cors");
-// const port = process.env.PORT || 9091;
+const port = process.env.PORT || 9091;
 // const portListen = process.env.PORT || 9090;
 
 app.use(express.json());
@@ -18,11 +18,11 @@ app.use(
 
 // 1: Require web sockets
 app.listen(9091, function () {
-  console.log("Running on port 9091");
+  console.log("Running on port... ${port}");
 });
 const websocketServer = require("websocket").server;
 const httpServer = http.createServer();
-httpServer.listen(9090, function () {
+httpServer.listen(port, function () {
   console.log("Listening.. on 9090");
 });
 
@@ -31,11 +31,6 @@ const games = {};
 var gameBoard = null;
 var difficulty = null;
 var playerNames = [];
-
-// 2: Assign name to server
-// const server = app.listen(8080, function () {
-//   console.log(`Listening server on port 8080`);
-// });
 
 // 3: Name websocket
 const wss = new websocketServer({ httpServer: httpServer });
