@@ -17,11 +17,9 @@ app.use(
 );
 
 // 1: Require web sockets
-app.listen(9091, function () {
-  console.log("Running on port 9091");
-});
 const websocketServer = require("websocket").server;
 const httpServer = http.createServer(app);
+httpServer.listen(9091);
 
 const clients = {};
 const games = {};
