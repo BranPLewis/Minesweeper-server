@@ -17,12 +17,12 @@ app.use(
 );
 
 // 1: Require web sockets
-app.listen(9091, function () {
+app.listen(port, function () {
   console.log("Running on port... ${port}");
 });
 const websocketServer = require("websocket").server;
 const httpServer = http.createServer();
-httpServer.listen(port, function () {
+httpServer.listen(9090, function () {
   console.log("Listening.. on 9090");
 });
 
