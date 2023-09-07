@@ -606,7 +606,7 @@ Vue.createApp({
       // const protocol = window.location.protocol.includes("https")
       //   ? "wss"
       //   : "ws";
-      this.socket = new WebSocket(`ws:https://mineswept-server.up.railway.app/`);
+      this.socket = new WebSocket(`ws://mineswept-server.up.railway.app/`);
       // this.socket.onopen = function () {
       //   console.log("Connected to websocket");
       // };
