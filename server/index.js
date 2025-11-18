@@ -2,8 +2,8 @@ const http = require("http");
 const express = require("express");
 const app = express();
 const cors = require("cors");
-// const port = process.env.PORT || 9091;
-// const portListen = process.env.PORT || 9090;
+
+const PORT = process.env.PORT || 9091;
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -19,7 +19,9 @@ app.use(
 // 1: Require web sockets
 const websocketServer = require("websocket").server;
 const httpServer = http.createServer(app);
-httpServer.listen(9091);
+httpServer.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+});
 
 const clients = {};
 const games = {};
