@@ -15,4 +15,7 @@
     "websocket": "^1.0.34",
     "ws": "^8.13.0"
   }
+  "script": {
+    "start": "node server/index.js
+  }
 }
