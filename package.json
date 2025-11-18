@@ -16,6 +16,6 @@
     "ws": "^8.13.0"
   }
   "script": {
-    "start": "node server/index.js
+    "start": "node server/index.js"
   }
 }
