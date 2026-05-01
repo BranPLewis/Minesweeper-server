@@ -2,7 +2,7 @@
 
 Play now: [sweepable.up.railway.app](https://sweepable.up.railway.app)
 
-![Sweepable UI Preview](sweepable.png)
+<img src="sweepable.png" alt="Sweepable UI Preview" width="400" />
 
 ## What is it?
 Sweepable is a modern, multiplayer recreation of the classic puzzle game, Minesweeper. It brings the nostalgic logic-based gameplay you know and love, but adds the thrilling ability to play alongside friends. Whether you want to test your solo sweeping skills or challenge a friend to a sweeping showdown, Sweepable has you covered.
